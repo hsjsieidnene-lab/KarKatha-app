@@ -1,11 +1,25 @@
 {
   "name": "KarKatha GST Dashboard",
   "short_name": "KarKatha",
+  "description": "Professional GST Dashboard for Tax Analysis & Compliance",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#12152b",
-  "theme_color": "#5850ec",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#020617",
+  "theme_color": "#1E3A8A",
   "orientation": "portrait",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icon-192.png",
