@@ -4,6 +4,304 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" href="icon-192.png">
+<title>KarKatha · GST Annual Reconciliation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #f8fafc;
+    --sidebar: #0f172a;
+    --sidebar-soft: #1e293b;
+    --sidebar-line: #334155;
+    --sidebar-text: #94a3b8;
+    --sidebar-text-dim: #64748b;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --accent: #4f46e5;
+    --accent-dark: #4338ca;
+    --accent-soft: #eef2ff;
+    --good: #10b981;
+    --good-soft: #ecfdf5;
+    --warn: #f59e0b;
+    --warn-soft: #fffbeb;
+    --bad: #ef4444;
+    --bad-soft: #fef2f2;
+    --radius: 12px;
+    --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .brand, .kicker { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* ---------- PROFESSIONAL LOGIN OVERLAY ---------- */
+  #loginOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  #loginOverlay .loginCard {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .brandrow2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .brandrow2 .brand-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .brandrow2 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  #loginOverlay h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.4px;
+  }
+
+  #loginOverlay .sub {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  #loginOverlay label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  #loginOverlay input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0f172a;
+    outline: none;
+    background: #f8fafc;
+    transition: all 0.15s ease;
+  }
+
+  #loginOverlay input:focus {
+    border-color: var(--accent);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+  }
+
+  #loginOverlay input::placeholder {
+    color: #94a3b8;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #ffffff;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  #loginError {
+    color: var(--bad);
+    font-size: 12.5px;
+    font-weight: 500;
+    margin-top: 14px;
+    min-height: 18px;
+    text-align: center;
+    background: var(--bad-soft);
+    border-radius: 6px;
+    padding: 0;
+    transition: all 0.2s ease;
+  }
+
+  #loginError:not(:empty) {
+    padding: 8px 12px;
+  }
+
+  .login-footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+</style>
+
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNwlD7G1mWUUU5vRyD8szpB1cKxeISeVI",
+    authDomain: "karkatha-app.firebaseapp.com",
+    projectId: "karkatha-app",
+    storageBucket: "karkatha-app.firebasestorage.app",
+    messagingSenderId: "437481055878",
+    appId: "1:437481055878:web:5ff22d2c709515e6cdd307"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+</head>
+<body>
+
+<!-- ================= PROFESSIONAL LOGIN OVERLAY ================= -->
+<div id="loginOverlay">
+  <div class="loginCard">
+    <div class="brandrow2">
+      <div class="brand-badge">
+        <span class="dot"></span> KarKatha Portal
+      </div>
+    </div>
+    <h2>Welcome back</h2>
+    <div class="sub">Please enter your authorized staff credentials to access GST Reconciliation.</div>
+    
+    <div class="form-group">
+      <label for="loginEmail">Email Address</label>
+      <input id="loginEmail" type="email" autocomplete="username" placeholder="name@company.com">
+    </div>
+
+    <div class="form-group">
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+    </div>
+
+    <button class="btn-primary" id="loginBtn">Sign in to Workspace</button>
+    
+    <div id="loginError"></div>
+
+    <div class="login-footer">
+      Protected by Enterprise-grade Security
+    </div>
+  </div>
+</div>
+
+<script>
+  const loginOverlay = document.getElementById('loginOverlay');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginEmail = document.getElementById('loginEmail');
+  const loginPassword = document.getElementById('loginPassword');
+  const errDiv = document.getElementById('loginError');
+
+  loginBtn.addEventListener('click', doLogin);
+  loginPassword.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  function doLogin() {
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value;
+    
+    errDiv.innerText = ''; 
+
+    if (!email || !password) {
+      errDiv.innerText = 'Please enter both email and password.';
+      return;
+    }
+
+    loginBtn.innerText = 'Signing in...';
+    loginBtn.style.opacity = '0.8';
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        loginOverlay.style.display = 'none';
+      })
+      .catch((error) => {
+        loginBtn.innerText = 'Sign in to Workspace';
+        loginBtn.style.opacity = '1';
+        errDiv.innerText = 'Invalid credentials or access denied.';
+      });
+  }
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      loginOverlay.style.display = 'none';
+    } else {
+      loginOverlay.style.display = 'flex';
+    }
+  });
+</script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#5850ec">
 <link rel="icon" href="icon-192.png">
 <title>KarKatha · GST Annual Reconciliation</title>
